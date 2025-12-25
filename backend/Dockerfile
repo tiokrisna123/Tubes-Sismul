@@ -1,35 +1,32 @@
-FROM golang:1.21-alpine AS builder
+# Gunakan image Golang berbasis Debian (Bookworm) yang lebih stabil
+# Ini akan mengatasi error 'pread64' / SQLite yang kamu alami
+FROM golang:1.23-bookworm AS builder
 
 WORKDIR /app
 
-# Install build dependencies
-RUN apk add --no-cache gcc musl-dev
-
-# Copy go mod files
+# Copy file dependency
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code
+# Copy sisa source code
 COPY . .
 
-# Build the application
-RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o main .
+# Build aplikasi
+RUN go build -o main .
 
-# Production stage
-FROM alpine:latest
+# --- Stage Akhir (Untuk Menjalankan Aplikasi) ---
+FROM debian:bookworm-slim
 
 WORKDIR /app
 
-# Install runtime dependencies
-RUN apk --no-cache add ca-certificates sqlite
+# Install sertifikat SSL (Wajib supaya bisa connect ke Neon/HTTPS)
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
-# Copy binary from builder
+# Copy hasil build dari stage sebelumnya
 COPY --from=builder /app/main .
-COPY --from=builder /app/.env.example ./.env
 
-# Create data directory for SQLite
-RUN mkdir -p /app/data
-
+# Expose port 8080
 EXPOSE 8080
 
+# Jalankan aplikasi
 CMD ["./main"]
