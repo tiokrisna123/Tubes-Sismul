@@ -1,0 +1,580 @@
+/* ============================================ */
+/* ADD HEALTH PAGE - MATCHING DASHBOARD THEME   */
+/* ============================================ */
+
+.add-health-page {
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #ecfdf5, #d1fae5, #cffafe, #e0f2fe, #f0fdfa, #ccfbf1);
+    background-size: 600% 600%;
+    animation: healthGradient 12s ease infinite;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes healthGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Animated Background Orbs */
+.add-health-page::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(6, 182, 212, 0.15) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatOrb 10s ease-in-out infinite;
+    filter: blur(40px);
+}
+
+.add-health-page::after {
+    content: '';
+    position: fixed;
+    bottom: -15%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.3) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatOrb 12s ease-in-out infinite reverse;
+    filter: blur(40px);
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+}
+
+/* Background Elements Container */
+.health-bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Floating Health Particles */
+.health-particle {
+    position: absolute;
+    pointer-events: none;
+    animation: healthFloat linear infinite;
+}
+
+.health-particle:nth-child(1) {
+    width: 40px;
+    height: 40px;
+    left: 5%;
+    animation-duration: 20s;
+    opacity: 0.6;
+}
+
+.health-particle:nth-child(2) {
+    width: 30px;
+    height: 30px;
+    left: 20%;
+    animation-duration: 25s;
+    animation-delay: 2s;
+    opacity: 0.5;
+}
+
+.health-particle:nth-child(3) {
+    width: 50px;
+    height: 50px;
+    left: 40%;
+    animation-duration: 22s;
+    animation-delay: 4s;
+    opacity: 0.4;
+}
+
+.health-particle:nth-child(4) {
+    width: 35px;
+    height: 35px;
+    left: 60%;
+    animation-duration: 28s;
+    animation-delay: 1s;
+    opacity: 0.5;
+}
+
+.health-particle:nth-child(5) {
+    width: 45px;
+    height: 45px;
+    left: 80%;
+    animation-duration: 24s;
+    animation-delay: 3s;
+    opacity: 0.6;
+}
+
+.health-particle:nth-child(6) {
+    width: 25px;
+    height: 25px;
+    left: 90%;
+    animation-duration: 30s;
+    animation-delay: 5s;
+    opacity: 0.4;
+}
+
+@keyframes healthFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    90% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Pulse Rings */
+.health-pulse {
+    position: absolute;
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pulseRing 4s ease-out infinite;
+}
+
+.health-pulse:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.health-pulse:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    top: 30%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.health-pulse:nth-child(3) {
+    width: 120px;
+    height: 120px;
+    bottom: 25%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* Page Header */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(16, 185, 129, 0.1);
+}
+
+.page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10b981;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+    transform: translateX(-3px);
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.25);
+}
+
+/* Main Container */
+.add-health-container {
+    padding: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Form Sections with Animation */
+.form-section {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    animation: slideInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.form-section:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.form-section:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.form-section:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.form-section:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15);
+}
+
+.form-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 16px;
+}
+
+.form-section h3 svg {
+    color: #10b981;
+}
+
+/* Form Elements */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-section textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid rgba(16, 185, 129, 0.2);
+    border-radius: 14px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.form-group input:focus,
+.form-section textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    background: white;
+}
+
+/* BMI Preview */
+.bmi-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border-radius: 14px;
+    margin-top: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.bmi-preview span {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.bmi-preview strong {
+    font-size: 24px;
+    font-weight: 800;
+    color: #059669;
+}
+
+/* Option Buttons */
+.option-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.option-btn {
+    padding: 14px 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(16, 185, 129, 0.2);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+    border-color: #10b981;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.15);
+}
+
+.option-btn.selected {
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Emotion Buttons */
+.emotion-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.emotion-btn {
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(16, 185, 129, 0.2);
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.emotion-btn:hover {
+    border-color: #10b981;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+}
+
+.emotion-btn.selected {
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.submit-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.35);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Spinner */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Dark Mode */
+[data-theme="dark"] .add-health-page {
+    background: linear-gradient(-45deg, #030712, #0a0f1a, #030712, #0c1425, #030712, #0a0f1a);
+}
+
+[data-theme="dark"] .add-health-page::before,
+[data-theme="dark"] .add-health-page::after {
+    opacity: 0.3;
+}
+
+[data-theme="dark"] .page-header {
+    background: rgba(3, 7, 18, 0.95);
+    border-bottom-color: rgba(30, 41, 59, 0.5);
+}
+
+[data-theme="dark"] .page-header h1 {
+    background: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .form-section {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(30, 41, 59, 0.5);
+}
+
+[data-theme="dark"] .form-section h3 {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .form-group label {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-section textarea {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(51, 65, 85, 0.5);
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .option-btn,
+[data-theme="dark"] .emotion-btn {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(51, 65, 85, 0.5);
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .health-pulse {
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .option-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-header h1 {
+        font-size: 18px;
+    }
+}

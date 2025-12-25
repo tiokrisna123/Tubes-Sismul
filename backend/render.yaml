@@ -1,0 +1,23 @@
+# Render.com Build Configuration
+services:
+  - type: web
+    name: health-tracker-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: GIN_MODE
+        value: release
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRY_HOURS
+        value: 24
+      - key: DATABASE_PATH
+        value: /app/data/health_tracker.db
+    disk:
+      name: health-data
+      mountPath: /app/data
+      sizeGB: 1
