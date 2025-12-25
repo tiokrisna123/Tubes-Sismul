@@ -12,7 +12,8 @@ type Config struct {
 	GinMode        string
 	JWTSecret      string
 	JWTExpiryHours int
-	DatabasePath   string
+	DatabasePath   string // Untuk SQLite (Local)
+	DatabaseURL    string // Untuk PostgreSQL (Render/Neon)
 }
 
 var AppConfig *Config
@@ -28,6 +29,8 @@ func LoadConfig() {
 		JWTSecret:      getEnv("JWT_SECRET", "default-secret-key"),
 		JWTExpiryHours: expiryHours,
 		DatabasePath:   getEnv("DATABASE_PATH", "./health_tracker.db"),
+		// INI YANG BARU: Membaca Environment Variable DB_URL dari Render
+		DatabaseURL: getEnv("DB_URL", ""),
 	}
 }
 
