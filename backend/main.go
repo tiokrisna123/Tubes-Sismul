@@ -23,6 +23,26 @@ func main() {
 	// Create Gin router
 	r := gin.Default()
 
+	// --- TAMBAHAN: PENGATURAN CORS (Supaya Netlify tidak diblokir) ---
+	r.Use(func(c *gin.Context) {
+		// Izinkan semua domain mengakses (*)
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		// Izinkan header-header penting (Authorization untuk login token, dll)
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		// Izinkan method standar
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		// Handle preflight request (OPTIONS)
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+	// ------------------------------------------------------------------
+
 	// Setup routes
 	routes.SetupRoutes(r)
 
