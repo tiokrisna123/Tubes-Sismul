@@ -4,7 +4,8 @@ import { Heart, Mail, Lock, Loader2, ArrowLeft, CheckCircle, Eye, EyeOff } from 
 import axios from 'axios';
 import './Auth.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// Menggunakan Link Koyeb Kamu
+const API_URL = 'https://bright-swan-1tubes-sismul-cc0e96ef.koyeb.app/api';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use environment variable for production, fallback to localhost for development
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// Menggunakan Link Koyeb Kamu secara langsung
+const API_BASE_URL = 'https://bright-swan-1tubes-sismul-cc0e96ef.koyeb.app/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -113,5 +113,14 @@ export const remindersAPI = {
     toggle: (id) => api.put(`/reminders/${id}/toggle`),
 };
 
-export default api;
+// Goals API (Saya lihat ada file Goals.jsx yang pakai goalsAPI tapi belum ada di api.js kamu sebelumnya, saya tambahkan biar aman)
+export const goalsAPI = {
+    getAll: () => api.get('/goals'),
+    create: (data) => api.post('/goals', data),
+    updateProgress: (id, current) => api.put(`/goals/${id}/progress`, { current }),
+    toggleComplete: (id) => api.put(`/goals/${id}/toggle`),
+    delete: (id) => api.delete(`/goals/${id}`),
+    getStats: () => api.get('/goals/stats'),
+};
 
+export default api;
