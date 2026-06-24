@@ -169,6 +169,12 @@ function App() {
         <ToastProvider>
           <AuthProvider>
             <Router>
+              {/* --- BANNER DEMO MULAI DARI SINI --- */}
+              <div style={{ backgroundColor: '#ff9800', color: 'white', textAlign: 'center', padding: '10px', fontSize: '14px', zIndex: 9999, position: 'sticky', top: 0, fontWeight: 'bold' }}>
+                🚀 UI Demo Mode: Koneksi Server & Database dinonaktifkan. Anda dapat mencoba navigasi antarmuka secara bebas.
+                Gunakan email (bebas@gmail.com) dan password sembarang.
+              </div>
+              {/* --- BANNER DEMO SELESAI --- */}
               <AppRoutes />
             </Router>
           </AuthProvider>

@@ -61,7 +61,7 @@ const Dashboard = () => {
         loadGraphData(graphPeriod);
     }, [graphPeriod]);
 
-    const loadDashboard = async () => {
+    {/*const loadDashboard = async () => {
         try {
             const dashRes = await healthAPI.getDashboard();
             setDashboard(dashRes.data.data);
@@ -73,24 +73,69 @@ const Dashboard = () => {
         } finally {
             setLoading(false);
         }
+    };*/}
+    const loadDashboard = async () => {
+        // --- MOCK DATA UNTUK DEMO ---
+        const mockData = {
+            health_score: 85,
+            bmi_category: 'Normal',
+            total_records: 12,
+            latest_health: {
+                bmi: 22.5,
+                emotional_state: 'happy'
+            },
+            recent_symptoms: [
+                { symptom_name: 'Sedikit Lelah', symptom_type: 'physical', severity: 3, logged_at: new Date().toISOString() },
+                { symptom_name: 'Cemas', symptom_type: 'mental', severity: 4, logged_at: new Date(Date.now() - 86400000).toISOString() }
+            ],
+            recommendations: [
+                { priority: 'high', title: 'Jaga Hidrasi', description: 'Minum minimal 2 liter air hari ini untuk menjaga konsentrasi.' },
+                { priority: 'medium', title: 'Peregangan Ringan', description: 'Lakukan peregangan 10 menit setelah duduk lama di depan layar.' }
+            ]
+        };
+
+        setDashboard(mockData);
+        analyzeHealthPatterns(mockData);
+        setLoading(false);
     };
 
-    const loadGraphData = async (period) => {
+    {/*const loadGraphData = async (period) => {
         try {
             const graphRes = await healthAPI.getGraph(period);
             setGraphData(graphRes.data.data || []);
         } catch (err) {
             console.error('Failed to load graph data:', err);
         }
+    };*/}
+    const loadGraphData = async (period) => {
+        // --- MOCK DATA UNTUK DEMO ---
+        const today = new Date();
+        const mockGraph = Array.from({ length: 7 }).map((_, i) => {
+            const d = new Date(today);
+            d.setDate(today.getDate() - (6 - i));
+            return {
+                date: d.toISOString().split('T')[0],
+                weight: 65 + Math.random() * 2 - 1 // Membuat grafik berat badan dinamis sekitar 65kg
+            };
+        });
+        setGraphData(mockGraph);
     };
 
-    const loadSymptomHistory = async () => {
+    {/*const loadSymptomHistory = async () => {
         try {
             const res = await symptomsAPI.getHistory();
             setSymptomHistory(res.data.data || []);
         } catch (err) {
             console.error('Failed to load symptom history:', err);
         }
+    };*/}
+    const loadSymptomHistory = async () => {
+        // --- MOCK DATA UNTUK DEMO ---
+        setSymptomHistory([
+            { symptom_name: 'Sedikit Lelah', symptom_type: 'physical', severity: 3, logged_at: new Date().toISOString() },
+            { symptom_name: 'Cemas', symptom_type: 'mental', severity: 4, logged_at: new Date(Date.now() - 86400000).toISOString() },
+            { symptom_name: 'Sakit Kepala', symptom_type: 'physical', severity: 5, logged_at: new Date(Date.now() - 172800000).toISOString() }
+        ]);
     };
 
     // Analyze health patterns for priority alerts
@@ -153,7 +198,7 @@ const Dashboard = () => {
 
     // Reminders CRUD functions
     const loadReminders = async () => {
-        try {
+        {/*try {
             const res = await remindersAPI.getAll();
             // Only update if API returns data, otherwise keep default templates
             if (res.data.data && res.data.data.length > 0) {
@@ -162,7 +207,7 @@ const Dashboard = () => {
         } catch (err) {
             console.error('Failed to load reminders, using default templates:', err);
             // Keep using default templates if API fails
-        }
+        }*/}
     };
 
     const toggleReminder = async (id) => {
@@ -220,7 +265,7 @@ const Dashboard = () => {
         setReminderForm({ type: 'water', label: '', time: '08:00' });
     };
 
-    const handleSaveReminder = async (e) => {
+    {/*const handleSaveReminder = async (e) => {
         e.preventDefault();
         if (!reminderForm.label.trim()) return;
 
@@ -238,6 +283,29 @@ const Dashboard = () => {
         } finally {
             setReminderLoading(false);
         }
+    };*/}
+    const handleSaveReminder = async (e) => {
+        e.preventDefault();
+        if (!reminderForm.label.trim()) return;
+
+        setReminderLoading(true);
+        // Simulasi loading server
+        setTimeout(() => {
+            if (editingReminder) {
+                // Edit pengingat yang ada
+                setReminders(reminders.map(r => r.id === editingReminder.id ? { ...r, ...reminderForm } : r));
+            } else {
+                // Tambah pengingat baru (menggunakan awalan 'default-' agar bisa dihapus lokal)
+                const newReminder = {
+                    id: 'default-custom-' + Date.now(),
+                    ...reminderForm,
+                    is_active: true
+                };
+                setReminders([...reminders, newReminder]);
+            }
+            closeReminderModal();
+            setReminderLoading(false);
+        }, 500);
     };
 
     const handleDeleteReminder = async (id) => {
